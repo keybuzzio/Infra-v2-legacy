@@ -1,0 +1,9 @@
+# Scripts utilitaires à conserver
+
+Ces scripts sont utiles pour la maintenance et le debugging :
+
+- reinit_cluster.sh : Réinitialisation complète du cluster (nettoyage + redémarrage)
+- check_module3_status.sh : Vérification de l'état de tous les services
+- check_build_status.sh : Vérification de l'état de construction des images Docker
+- resume_module3.sh : Résumé de l'état du Module 3
+

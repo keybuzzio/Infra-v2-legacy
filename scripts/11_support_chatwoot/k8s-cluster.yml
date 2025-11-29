@@ -1,0 +1,18 @@
+# Configuration Kubernetes Cluster - KeyBuzz V2
+# CIDR corrigés pour compatibilité
+
+kube_network_plugin: calico
+
+# Pod CIDR Calico (doit englober tous les pods)
+kube_pods_subnet: 10.233.0.0/16
+
+# Service CIDR standard Kubernetes (séparé des pods)
+kube_service_addresses: 10.96.0.0/12
+
+# Mode kube-proxy
+kube_proxy_mode: iptables
+
+# DNS
+dns_mode: coredns
+resolvconf_mode: host_resolvconf
+

@@ -1,0 +1,51 @@
+ENV	IP_PUBLIQUE	HOSTNAME	IP_PRIVEE	FQDN	USER_SSH	POOL	ROLE	SUBROLE	DOCKER_STACK	CORE	NOTES
+prod	91.98.124.228	k8s-master-01	10.0.0.100	master1.keybuzz.io	root	k3s-masters	k3s	master	k3s-control-plane	yes	Master K3s #1 (api-server, etcd intégré)
+prod	91.98.117.26	k8s-master-02	10.0.0.101	master2.keybuzz.io	root	k3s-masters	k3s	master	k3s-control-plane	yes	Master K3s #2
+prod	91.98.165.238	k8s-master-03	10.0.0.102	master3.keybuzz.io	root	k3s-masters	k3s	master	k3s-control-plane	yes	Master K3s #3
+prod	116.203.135.192	k8s-worker-01	10.0.0.110	worker1.keybuzz.io	root	k3s-workers	k3s	worker	k3s-worker-general	yes	Worker K3s (KeyBuzz API/Front, Chatwoot, n8n…)
+prod	91.99.164.62	k8s-worker-02	10.0.0.111	worker2.keybuzz.io	root	k3s-workers	k3s	worker	k3s-worker-general	yes	Worker K3s
+prod	157.90.119.183	k8s-worker-03	10.0.0.112	worker3.keybuzz.io	root	k3s-workers	k3s	worker	k3s-worker-heavy	yes	Worker K3s (workloads IA plus lourds)
+prod	91.98.200.38	k8s-worker-04	10.0.0.113	worker4.keybuzz.io	root	k3s-workers	k3s	worker	k3s-worker-observability	yes	Worker K3s (monitoring, jobs batch, etc.)
+prod	188.245.45.242	k8s-worker-05	10.0.0.114	worker5.keybuzz.io	root	k3s-workers	k3s	worker	k3s-worker-extra	no	Worker K3s supplémentaire (scalabilité / réserve)
+prod	195.201.122.106	db-master-01	10.0.0.120	db-master.keybuzz.io	root	db-pool	db	postgres	patroni-node	yes	PostgreSQL 16 + Patroni (conteneur docker "patroni")
+prod	91.98.169.31	db-slave-01	10.0.0.121	db-slave1.keybuzz.io	root	db-pool	db	postgres	patroni-node	yes	PostgreSQL 16 + Patroni (réplica)
+prod	65.21.251.198	db-slave-02	10.0.0.122	db-slave2.keybuzz.io	root	db-pool	db	postgres	patroni-node	yes	PostgreSQL 16 + Patroni (réplica)
+prod	49.12.231.193	redis-01	10.0.0.123	redis1.keybuzz.io	root	redis-pool	redis	master	redis-ha-docker	yes	Redis HA master (cluster/sentinel, exposé via 10.0.0.10:6379)
+prod	23.88.48.163	redis-02	10.0.0.124	redis2.keybuzz.io	root	redis-pool	redis	replica	redis-ha-docker	yes	Redis HA replica
+prod	91.98.167.166	redis-03	10.0.0.125	redis3.keybuzz.io	root	redis-pool	redis	replica	redis-ha-docker	yes	Redis HA replica / Sentinel
+prod	23.88.105.16	queue-01	10.0.0.126	queue1.keybuzz.io	root	queue-pool	queue	rabbitmq	rabbitmq-ha-docker	yes	RabbitMQ quorum cluster (nœud 1, exposé via 10.0.0.10:5672)
+prod	91.98.167.159	queue-02	10.0.0.127	queue2.keybuzz.io	root	queue-pool	queue	rabbitmq	rabbitmq-ha-docker	yes	RabbitMQ quorum cluster (nœud 2)
+prod	91.98.68.35	queue-03	10.0.0.128	queue3.keybuzz.io	root	queue-pool	queue	rabbitmq	rabbitmq-ha-docker	yes	RabbitMQ quorum cluster (nœud 3)
+prod	88.99.227.128	temporal-db-01	10.0.0.129	temporal-db.keybuzz.io	root	temporal	db	postgres	temporal-db-docker	no	DB Temporal (peut être dépriorisée si n8n devient moteur central)
+prod	91.98.197.70	temporal-01	10.0.0.138	temporal.keybuzz.io	root	temporal	app	temporal	temporal-server-docker	no	Serveur Temporal (à rediscuter vs n8n)
+prod	91.98.134.176	analytics-db-01	10.0.0.130	analytics-db.keybuzz.io	root	analytics	db	postgres	analytics-db-docker	no	DB Analytics (BI / reporting)
+prod	91.99.237.167	analytics-01	10.0.0.139	analytics.keybuzz.io	root	analytics	app	analytics	analytics-app-docker	no	Moteur Analytics (ETL, dashboards)
+prod	116.203.144.185	minio-01	10.0.0.134	s3.keybuzz.io	root	storage	storage	minio	minio-docker	yes	MinIO node #1
+prod	91.99.199.183	minio-02	10.0.0.131	minio-02.keybuzz.io	root	storage	storage	minio	minio-docker	yes	MinIO node #2 (ex-connect-01)
+prod	91.99.103.47	minio-03	10.0.0.132	minio-03.keybuzz.io	root	storage	storage	minio	minio-docker	yes	MinIO node #3 (ex-connect-02)
+prod	78.47.43.10	crm-01	10.0.0.133	crm.keybuzz.io	root	billing	app	crm	crm-docker	no	CRM / facturation externe
+prod	23.88.107.251	api-gateway-01	10.0.0.135	gateway.keybuzz.io	root	gateway	lb	api-gateway	api-gateway-docker	no	API Gateway dédié (peut faire doublon avec Ingress K3s)
+prod	116.203.240.119	vector-db-01	10.0.0.136	qdrant.keybuzz.io	root	vector	vectordb	qdrant	qdrant-docker	yes	Vector DB pour embeddings (Qdrant en Docker)
+prod	91.98.200.40	litellm-01	10.0.0.137	llm.keybuzz.io	root	ai	app	llm-proxy	litellm-docker	yes	Proxy LLM (LiteLLM, multi-fournisseur IA)
+prod	195.201.225.134	etl-01	10.0.0.140	etl.keybuzz.io	root	etl	app	etl	etl-docker	no	Serveur ETL / jobs de traitement
+prod	91.99.195.137	baserow-01	10.0.0.144	baserow.keybuzz.io	root	apps	app	nocode	baserow-docker	no	Baserow (outil no-code / tables)
+prod	78.46.170.170	nocodb-01	10.0.0.142	nocodb.keybuzz.io	root	apps	app	nocode	nocodb-docker	no	NocoDB
+prod	157.90.236.10	ml-platform-01	10.0.0.143	ml.keybuzz.io	root	ai	app	ml-platform	ml-platform-docker	no	Plateforme ML (expérimentations modèles, pipelines)
+prod	116.203.61.22	vault-01	10.0.0.150	vault.keybuzz.io	root	security	security	vault	vault-docker	no	Gestion des secrets (Vault)
+prod	91.99.58.179	siem-01	10.0.0.151	siem.keybuzz.io	root	security	security	siem	siem-docker	no	SIEM / logs sécurité
+prod	23.88.105.216	monitor-01	10.0.0.152	monitor.keybuzz.io	root	monitoring	monitoring	monitor	monitoring-docker	no	Stack monitoring externe (peut compléter kube-prometheus-stack)
+prod	91.98.139.56	backup-01	10.0.0.153	backup.keybuzz.io	root	backup	backup	backup	backup-docker	yes	Point central de backup (snapshot DB, sync MinIO, etc.)
+prod	37.27.251.162	mail-core-01	10.0.0.160	mail.keybuzz.io	root	mail-pool	mail	core	mailserver-docker	no	Serveur mail principal (SMTP, IMAP)
+prod	91.99.66.6	mail-mx-01	10.0.0.161	mx1.keybuzz.io	root	mail-pool	mail	mx	mx-docker	no	MX 1
+prod	91.99.87.76	mail-mx-02	10.0.0.162	mx2.keybuzz.io	root	mail-pool	mail	mx	mx-docker	no	MX 2
+prod	5.75.128.134	builder-01	10.0.0.200	builder.keybuzz.io	root	dev	dev	builder	builder-docker	no	CI/CD, build, tests
+prod	91.98.128.153	install-01	10.0.0.250	install-01.keybuzz.io	root	management	orchestrator	base	no-docker-or-light	yes	Serveur d'orchestration (keybuzzio/Infra, scripts d'install)
+prod	159.69.159.32	haproxy-01	10.0.0.11	haproxy1.keybuzz.io	root	haproxy-pool	lb	internal-haproxy	haproxy-docker	yes	HAProxy interne #1 (backend du LB Hetzner 10.0.0.10, Postgres/Redis/RabbitMQ)
+prod	91.98.164.223	haproxy-02	10.0.0.12	haproxy2.keybuzz.io	root	haproxy-pool	lb	internal-haproxy	haproxy-docker	yes	HAProxy interne #2
+prod	91.98.35.206	maria-01	10.0.0.170	maria-01.keybuzz.io	root	db-pool	db	mariadb	mariadb-galera-docker	yes	MariaDB Galera ERPNext (nœud 1)
+prod	46.224.43.75	maria-02	10.0.0.171	maria-02.keybuzz.io	root	db-pool	db	mariadb	mariadb-galera-docker	yes	MariaDB Galera ERPNext (nœud 2)
+prod	49.13.66.233	maria-03	10.0.0.172	maria-03.keybuzz.io	root	db-pool	db	mariadb	mariadb-galera-docker	yes	MariaDB Galera ERPNext (nœud 3)
+prod	46.224.64.206	proxysql-01	10.0.0.173	proxysql-01.keybuzz.io	root	haproxy-pool	db_proxy	proxysql	proxysql-docker	yes	ProxySQL n°1 (frontend MariaDB pour ERPNext, LB interne MariaDB)
+prod	188.245.194.27	proxysql-02	10.0.0.174	proxysql-02.keybuzz.io	root	haproxy-pool	db_proxy	proxysql	proxysql-docker	yes	ProxySQL n°2
+
+

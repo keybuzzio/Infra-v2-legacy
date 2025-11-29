@@ -1,0 +1,37 @@
+# Versions Docker Figées - Infrastructure KeyBuzz
+# Ce fichier centralise toutes les versions d'images Docker utilisées dans l'infrastructure.
+# Tous les scripts d'installation doivent lire ce fichier et utiliser ces versions exactes.
+# ⚠️ NE JAMAIS utiliser "latest" ou des tags flottants.
+
+# PostgreSQL & Patroni
+postgres_image: "postgres:16.4-alpine"
+patroni_image: "zalando/patroni:3.3.0"
+
+# Redis
+redis_image: "redis:7.2.5-alpine"
+
+# RabbitMQ
+rabbitmq_image: "rabbitmq:3.13.2-management"
+
+# MinIO
+minio_image: "minio/minio:latest"
+
+# HAProxy
+haproxy_image: "haproxy:2.8.5"
+
+# MariaDB Galera
+mariadb_galera_image: "bitnami/mariadb-galera:10.11.6"
+
+# ProxySQL
+proxysql_image: "proxysql/proxysql:2.6.4"
+
+# K3s
+k3s_version: "v1.33.5+k3s1"
+
+# Monitoring (si utilisé)
+prometheus_image: "prom/prometheus:latest"  # TODO: Fixer version précise
+grafana_image: "grafana/grafana:latest"      # TODO: Fixer version précise
+
+# Ingress NGINX
+ingress_nginx_image: "registry.k8s.io/ingress-nginx/controller:latest"  # TODO: Fixer version précise
+

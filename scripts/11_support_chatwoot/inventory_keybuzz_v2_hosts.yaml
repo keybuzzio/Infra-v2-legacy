@@ -1,0 +1,59 @@
+all:
+  hosts:
+    k8s-master-01:
+      ansible_host: 10.0.0.100
+      ip: 10.0.0.100
+      access_ip: 10.0.0.100
+    k8s-master-02:
+      ansible_host: 10.0.0.101
+      ip: 10.0.0.101
+      access_ip: 10.0.0.101
+    k8s-master-03:
+      ansible_host: 10.0.0.102
+      ip: 10.0.0.102
+      access_ip: 10.0.0.102
+    k8s-worker-01:
+      ansible_host: 10.0.0.110
+      ip: 10.0.0.110
+      access_ip: 10.0.0.110
+    k8s-worker-02:
+      ansible_host: 10.0.0.111
+      ip: 10.0.0.111
+      access_ip: 10.0.0.111
+    k8s-worker-03:
+      ansible_host: 10.0.0.112
+      ip: 10.0.0.112
+      access_ip: 10.0.0.112
+    k8s-worker-04:
+      ansible_host: 10.0.0.113
+      ip: 10.0.0.113
+      access_ip: 10.0.0.113
+    k8s-worker-05:
+      ansible_host: 10.0.0.114
+      ip: 10.0.0.114
+      access_ip: 10.0.0.114
+  children:
+    kube_control_plane:
+      hosts:
+        k8s-master-01:
+        k8s-master-02:
+        k8s-master-03:
+    kube_node:
+      hosts:
+        k8s-worker-01:
+        k8s-worker-02:
+        k8s-worker-03:
+        k8s-worker-04:
+        k8s-worker-05:
+    etcd:
+      hosts:
+        k8s-master-01:
+        k8s-master-02:
+        k8s-master-03:
+    k8s_cluster:
+      children:
+        kube_control_plane:
+        kube_node:
+    calico_rr:
+      hosts: {}
+

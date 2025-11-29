@@ -1,0 +1,35 @@
+# Secrets et fichiers sensibles
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+*.env
+secrets/
+*.secret
+
+# Fichiers temporaires
+*.tmp
+*.log
+*.bak
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Fichiers de backup
+backups/
+*.backup
+
+# Fichiers locaux
+servers.local.tsv
+config.local.sh
+
+

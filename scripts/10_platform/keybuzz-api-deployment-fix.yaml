@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keybuzz-api
+  namespace: keybuzz
+  labels:
+    app: platform-api
+    component: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: platform-api
+      component: backend
+  template:
+    metadata:
+      labels:
+        app: platform-api
+        component: backend
+    spec:
+      imagePullSecrets:
+      - name: ghcr-secret
+      containers:
+      - name: api
+        image: ghcr.io/keybuzzio/platform-api:0.1.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: PORT
+          value: "8080"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+

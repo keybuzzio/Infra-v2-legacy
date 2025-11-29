@@ -1,0 +1,36 @@
+# Configuration SSH pour KeyBuzz Infrastructure
+# Placer ce fichier dans : C:\Users\ludov\.ssh\config (Windows)
+# OU : ~/.ssh/config (Linux/Mac/Git Bash)
+
+# Serveur install-01 (orchestration)
+Host install-01
+    HostName 91.98.128.153
+    User root
+    Port 22
+    StrictHostKeyChecking accept-new
+    UserKnownHostsFile ~/.ssh/known_hosts
+    IdentityFile ~/.ssh/keybuzz_infra
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    ForwardAgent no
+
+# Configuration par défaut pour tous les serveurs KeyBuzz
+Host *.keybuzz.io
+    User root
+    StrictHostKeyChecking accept-new
+    UserKnownHostsFile ~/.ssh/known_hosts
+    IdentityFile ~/.ssh/keybuzz_infra
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+
+# Configuration pour les IPs privées (10.0.0.x)
+Host 10.0.0.*
+    User root
+    StrictHostKeyChecking accept-new
+    UserKnownHostsFile ~/.ssh/known_hosts
+    IdentityFile ~/.ssh/keybuzz_infra
+    ProxyJump install-01
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+
+

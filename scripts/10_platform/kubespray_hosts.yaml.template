@@ -1,0 +1,90 @@
+# hosts.yaml - Inventaire Kubespray pour KeyBuzz
+# 
+# Architecture :
+#   - 3 Masters (control-plane)
+#   - 5 Workers
+#   - CNI: Calico IPIP
+#   - kube-proxy: iptables
+#
+# Usage:
+#   cp kubespray_hosts.yaml.template /opt/kubespray/inventory/keybuzz/hosts.yaml
+#   Puis éditer si nécessaire
+
+all:
+  hosts:
+    # ============================================================
+    # MASTERS (Control Plane)
+    # ============================================================
+    k3s-master-01:
+      ansible_host: 10.0.0.100
+      ip: 10.0.0.100
+      access_ip: 10.0.0.100
+    k3s-master-02:
+      ansible_host: 10.0.0.101
+      ip: 10.0.0.101
+      access_ip: 10.0.0.101
+    k3s-master-03:
+      ansible_host: 10.0.0.102
+      ip: 10.0.0.102
+      access_ip: 10.0.0.102
+
+    # ============================================================
+    # WORKERS
+    # ============================================================
+    k3s-worker-01:
+      ansible_host: 10.0.0.110
+      ip: 10.0.0.110
+      access_ip: 10.0.0.110
+    k3s-worker-02:
+      ansible_host: 10.0.0.111
+      ip: 10.0.0.111
+      access_ip: 10.0.0.111
+    k3s-worker-03:
+      ansible_host: 10.0.0.112
+      ip: 10.0.0.112
+      access_ip: 10.0.0.112
+    k3s-worker-04:
+      ansible_host: 10.0.0.113
+      ip: 10.0.0.113
+      access_ip: 10.0.0.113
+    k3s-worker-05:
+      ansible_host: 10.0.0.114
+      ip: 10.0.0.114
+      access_ip: 10.0.0.114
+
+  children:
+    # ============================================================
+    # GROUPE: kube_control_plane (Masters)
+    # ============================================================
+    kube_control_plane:
+      hosts:
+        k3s-master-01:
+        k3s-master-02:
+        k3s-master-03:
+
+    # ============================================================
+    # GROUPE: kube_node (Workers)
+    # ============================================================
+    kube_node:
+      hosts:
+        k3s-worker-01:
+        k3s-worker-02:
+        k3s-worker-03:
+        k3s-worker-04:
+        k3s-worker-05:
+
+    # ============================================================
+    # GROUPE: etcd (Masters avec etcd)
+    # ============================================================
+    etcd:
+      hosts:
+        k3s-master-01:
+        k3s-master-02:
+        k3s-master-03:
+
+    # ============================================================
+    # GROUPE: calico_rr (Route Reflectors - optionnel)
+    # ============================================================
+    # calico_rr:
+    #   hosts: {}
+

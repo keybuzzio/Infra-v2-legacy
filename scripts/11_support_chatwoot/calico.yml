@@ -1,0 +1,5 @@
+# Configuration Calico - KeyBuzz V2
+
+calico_ipip_mode: "Always"
+calico_vxlan_mode: "Never"
+
